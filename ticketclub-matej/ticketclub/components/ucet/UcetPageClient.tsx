@@ -495,195 +495,200 @@ export default function UcetPageClient({ user, profile, subscription }: { user: 
       */}
 
       {/* Google Sheets záloha */}
-      <div style={{ background: "#111111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1rem", position: "relative", overflow: "hidden" }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff", marginBottom: 4 }}>GOOGLE SHEETS ZÁLOHA</div>
-        <div style={{ fontSize: 12, color: "#ffffff", marginBottom: "1rem" }}>
-          Automatická synchronizace dat do Google Sheets. Sdílejte sheet s:{" "}
-          <span style={{ color: "#4ade80", fontSize: 11 }}>ticketclub-zaloha@ticketclub-sheets.iam.gserviceaccount.com</span>
-          <div style={{ fontSize: 11, color: "#525252", marginTop: 6 }}>
-            Automatická záloha probíhá každý den o půlnoci.
+      {false && (
+        <div style={{ background: "#111111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1rem", position: "relative", overflow: "hidden" }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff", marginBottom: 4 }}>GOOGLE SHEETS ZÁLOHA</div>
+          <div style={{ fontSize: 12, color: "#ffffff", marginBottom: "1rem" }}>
+            Automatická synchronizace dat do Google Sheets. Sdílejte sheet s:{" "}
+            <span style={{ color: "#4ade80", fontSize: 11 }}>ticketclub-zaloha@ticketclub-sheets.iam.gserviceaccount.com</span>
+            <div style={{ fontSize: 11, color: "#525252", marginTop: 6 }}>
+              Automatická záloha probíhá každý den o půlnoci.
+            </div>
           </div>
-        </div>
-
-        {sheetConnected && (
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "0.75rem", padding: "0.5rem 0.75rem", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", borderRadius: 8 }}>
-            <span style={{ color: "#34d399", fontSize: 12 }}>✓ Sheet propojen</span>
-            <a href={sheetUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#34d399", fontSize: 11, marginLeft: 4 }}>Otevřít →</a>
-          </div>
-        )}
-
-        <input
-          type="text"
-          placeholder="https://docs.google.com/spreadsheets/d/..."
-          value={sheetUrl}
-          onChange={e => setSheetUrl(e.target.value)}
-          style={{ width: "100%", padding: "0.6rem 1rem", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#fff", fontSize: 13, marginBottom: "0.75rem", boxSizing: "border-box" as const }}
-        />
-
-        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" as const, alignItems: "center" }}>
-          <button
-            onClick={async () => {
-              if (sheetConnected) {
-                // Disconnect
-                const supabase = createClient();
-                const { data: { user } } = await supabase.auth.getUser();
-                if (user) {
-                  await supabase.from("profiles").update({ google_sheet_id: null }).eq("id", user.id);
-                  setSheetConnected(false);
-                  setSheetUrl("");
-                }
-                return;
-              }
-              setSheetLoading(true);
-              const res = await fetch("/api/sheets/connect", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sheetUrl })
-              });
-              const d = await res.json();
-              setSheetLoading(false);
-              if (d.ok) {
-                setSheetConnected(true);
-              } else {
-                alert("✗ " + d.error);
-              }
-            }}
-            style={{ padding: "0.6rem 1rem", background: sheetConnected ? "transparent" : "transparent", border: "1px solid #2a2a2a", borderRadius: 8, color: sheetConnected ? "#f87171" : "#fff", fontSize: 13, cursor: "pointer" }}
-          >
-            {sheetLoading ? "Připojuji..." : sheetConnected ? "Odpojit sheet" : "Propojit sheet"}
-          </button>
 
           {sheetConnected && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "0.75rem", padding: "0.5rem 0.75rem", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", borderRadius: 8 }}>
+              <span style={{ color: "#34d399", fontSize: 12 }}>✓ Sheet propojen</span>
+              <a href={sheetUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#34d399", fontSize: 11, marginLeft: 4 }}>Otevřít →</a>
+            </div>
+          )}
+
+          <input
+            type="text"
+            placeholder="https://docs.google.com/spreadsheets/d/..."
+            value={sheetUrl}
+            onChange={e => setSheetUrl(e.target.value)}
+            style={{ width: "100%", padding: "0.6rem 1rem", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#fff", fontSize: 13, marginBottom: "0.75rem", boxSizing: "border-box" as const }}
+          />
+
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" as const, alignItems: "center" }}>
             <button
               onClick={async () => {
-                setSyncLoading(true);
-                const res = await fetch("/api/sheets/sync", { method: "POST" });
+                if (sheetConnected) {
+                  const supabase = createClient();
+                  const { data: { user } } = await supabase.auth.getUser();
+                  if (user) {
+                    await supabase.from("profiles").update({ google_sheet_id: null }).eq("id", user.id);
+                    setSheetConnected(false);
+                    setSheetUrl("");
+                  }
+                  return;
+                }
+                setSheetLoading(true);
+                const res = await fetch("/api/sheets/connect", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ sheetUrl })
+                });
                 const d = await res.json();
-                setSyncLoading(false);
-                if (d.ok) alert(`✓ Synchronizované ${d.synced} nákupov!`);
-                else alert("✗ " + d.error);
+                setSheetLoading(false);
+                if (d.ok) {
+                  setSheetConnected(true);
+                } else {
+                  alert("✗ " + d.error);
+                }
               }}
-              style={{ padding: "0.6rem 1rem", background: "linear-gradient(135deg, #ffffff, #a0a0a0)", border: "none", borderRadius: 8, color: "#000", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+              style={{ padding: "0.6rem 1rem", background: sheetConnected ? "transparent" : "transparent", border: "1px solid #2a2a2a", borderRadius: 8, color: sheetConnected ? "#f87171" : "#fff", fontSize: 13, cursor: "pointer" }}
             >
-              {syncLoading ? "Synchronizuji..." : "Synchronizovat nyní"}
+              {sheetLoading ? "Připojuji..." : sheetConnected ? "Odpojit sheet" : "Propojit sheet"}
             </button>
-          )}
-          
-          <button
-            onClick={() => setSheetsVideoOpen(true)}
-            style={{ background: "none", border: "1px solid #2a2a2a", borderRadius: 8, padding: "0.6rem 1rem", color: "#ffffff", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
-          >
-            ℹ️ Ukázka a video návod
-          </button>
+
+            {sheetConnected && (
+              <button
+                onClick={async () => {
+                  setSyncLoading(true);
+                  const res = await fetch("/api/sheets/sync", { method: "POST" });
+                  const d = await res.json();
+                  setSyncLoading(false);
+                  if (d.ok) alert(`✓ Synchronizované ${d.synced} nákupov!`);
+                  else alert("✗ " + d.error);
+                }}
+                style={{ padding: "0.6rem 1rem", background: "linear-gradient(135deg, #ffffff, #a0a0a0)", border: "none", borderRadius: 8, color: "#000", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+              >
+                {syncLoading ? "Synchronizuji..." : "Synchronizovat nyní"}
+              </button>
+            )}
+
+            <button
+              onClick={() => setSheetsVideoOpen(true)}
+              style={{ background: "none", border: "1px solid #2a2a2a", borderRadius: 8, padding: "0.6rem 1rem", color: "#ffffff", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+            >
+              ℹ️ Ukázka a video návod
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Email Import */}
-      {(isPro || isAdmin) ? (
-        <div style={{ background: "#111111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1rem" }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff", marginBottom: 4 }}>EMAIL IMPORT</div>
-          <div style={{ fontSize: 12, color: "#ededed", marginBottom: "0.75rem" }}>
-            Přeposílejte potvrzovací emaily z Ticketmaster a nákupy se automaticky přidají do Evidence.
-          </div>
-          <div
-            onClick={() => navigator.clipboard.writeText(`${user?.id?.substring(0, 8)}@mail.refreshbot.vercel.app`)}
-            style={{ padding: "0.6rem 1rem", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#4ade80", fontSize: 13, fontFamily: "monospace", cursor: "pointer", userSelect: "all" as const, marginBottom: "0.5rem" }}
-          >
-            {user?.id?.substring(0, 8)}@mail.refreshbot.vercel.app
-          </div>
-          <div style={{ fontSize: 11, color: "#525252" }}>Klikněte pro zkopírování.</div>
-        </div>
-      ) : (
-        <div style={{ background: "#111111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1rem" }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff", marginBottom: 4 }}>EMAIL IMPORT</div>
-          <div style={{ fontSize: 12, color: "#ededed", marginBottom: "1rem" }}>
-            Přeposílejte potvrzovací emaily z Ticketmaster a nákupy se automaticky přidají do Evidence.
-          </div>
-          <div style={{ position: "relative" }}>
-            <div style={{ padding: "0.6rem 1rem", background: "#0a0a0a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#4ade80", fontSize: 13, fontFamily: "monospace", filter: "blur(6px)", userSelect: "none" as const, marginBottom: "0.5rem" }}>
-              xxxxxxxx@mail.refreshbot.vercel.app
+      {false && (
+        (isPro || isAdmin) ? (
+          <div style={{ background: "#111111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1rem" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff", marginBottom: 4 }}>EMAIL IMPORT</div>
+            <div style={{ fontSize: 12, color: "#ededed", marginBottom: "0.75rem" }}>
+              Přeposílejte potvrzovací emaily z Ticketmaster a nákupy se automaticky přidají do Evidence.
             </div>
-            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div
+              onClick={() => navigator.clipboard.writeText(`${user?.id?.substring(0, 8)}@mail.refreshbot.vercel.app`)}
+              style={{ padding: "0.6rem 1rem", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#4ade80", fontSize: 13, fontFamily: "monospace", cursor: "pointer", userSelect: "all" as const, marginBottom: "0.5rem" }}
+            >
+              {user?.id?.substring(0, 8)}@mail.refreshbot.vercel.app
+            </div>
+            <div style={{ fontSize: 11, color: "#525252" }}>Klikněte pro zkopírování.</div>
+          </div>
+        ) : (
+          <div style={{ background: "#111111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1rem" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff", marginBottom: 4 }}>EMAIL IMPORT</div>
+            <div style={{ fontSize: 12, color: "#ededed", marginBottom: "1rem" }}>
+              Přeposílejte potvrzovací emaily z Ticketmaster a nákupy se automaticky přidají do Evidence.
+            </div>
+            <div style={{ position: "relative" }}>
+              <div style={{ padding: "0.6rem 1rem", background: "#0a0a0a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#4ade80", fontSize: 13, fontFamily: "monospace", filter: "blur(6px)", userSelect: "none" as const, marginBottom: "0.5rem" }}>
+                xxxxxxxx@mail.refreshbot.vercel.app
+              </div>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent("openUpgradeModal"))}
+                  style={{ padding: "0.5rem 1.25rem", background: "linear-gradient(135deg, #a855f7, #7c3aed)", border: "none", borderRadius: 10, color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+                >
+                  Upgradovat na PRO →
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      )}
+
+      {/* Danger zone */}
+      {false && (
+        <div style={{ ...cardStyle, border: "1px solid rgba(248,113,113,0.2)", background: "#110a0a" }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(248,113,113,0.4), transparent)" }} />
+          <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#f87171", marginBottom: "0.5rem" }}>Nebezpečná zóna</h2>
+          <p style={{ fontSize: 13, color: "#ffffff", marginBottom: "1.5rem" }}>Tyto akce jsou nevratné. Postupujte opatrně.</p>
+
+          {/* Reset account */}
+          <div style={{ padding: "1.25rem", background: "#0a0a0a", border: "1px solid #2a2a2a", borderRadius: 12, marginBottom: "1rem" }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#fbbf24", marginBottom: 4 }}>Resetovat účet</div>
+            <p style={{ fontSize: 12, color: "#ffffff", marginBottom: "1rem" }}>
+              Smaže všechny nákupy, prodeje, bannery a vynuluje kapitál. Účet zůstane aktivní.
+            </p>
+            <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+              <input
+                type="text"
+                placeholder='Napište "reset" pro potvrzení'
+                value={resetConfirm}
+                onChange={e => setResetConfirm(e.target.value)}
+                style={{ ...inputStyle, flex: 1 }}
+              />
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent("openUpgradeModal"))}
-                style={{ padding: "0.5rem 1.25rem", background: "linear-gradient(135deg, #a855f7, #7c3aed)", border: "none", borderRadius: 10, color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+                onClick={resetAccount}
+                disabled={resetting || resetConfirm !== "reset"}
+                style={{
+                  padding: "0.75rem 1.25rem", fontSize: 13, fontWeight: 700,
+                  background: resetConfirm === "reset" ? "#fbbf24" : "#1a1a1a",
+                  border: "none", borderRadius: 10,
+                  color: resetConfirm === "reset" ? "#000" : "#ededed",
+                  cursor: resetConfirm === "reset" ? "pointer" : "default",
+                  whiteSpace: "nowrap" as const,
+                }}
               >
-                Upgradovat na PRO →
+                {resetting ? "Resetuji..." : "Resetovat"}
+              </button>
+            </div>
+            {resetMsg && <p style={{ fontSize: 13, color: resetMsg.startsWith("✓") ? "#34d399" : "#f87171", marginTop: 8 }}>{resetMsg}</p>}
+          </div>
+
+          {/* Delete account */}
+          <div style={{ padding: "1.25rem", background: "#0a0a0a", border: "1px solid rgba(248,113,113,0.2)", borderRadius: 12 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#f87171", marginBottom: 4 }}>Smazat účet</div>
+            <p style={{ fontSize: 12, color: "#ffffff", marginBottom: "1rem" }}>
+              Trvale smaže váš účet a všechna data. Tato akce je nevratná.
+            </p>
+            <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+              <input
+                type="text"
+                placeholder='Napište "smazat" pro potvrzení'
+                value={deleteConfirm}
+                onChange={e => setDeleteConfirm(e.target.value)}
+                style={{ ...inputStyle, flex: 1 }}
+              />
+              <button
+                onClick={deleteAccount}
+                disabled={deleting || deleteConfirm !== "smazat"}
+                style={{
+                  padding: "0.75rem 1.25rem", fontSize: 13, fontWeight: 700,
+                  background: deleteConfirm === "smazat" ? "#f87171" : "#1a1a1a",
+                  border: "none", borderRadius: 10,
+                  color: deleteConfirm === "smazat" ? "#000" : "#ededed",
+                  cursor: deleteConfirm === "smazat" ? "pointer" : "default",
+                  whiteSpace: "nowrap" as const,
+                }}
+              >
+                {deleting ? "Mažu..." : "Smazat účet"}
               </button>
             </div>
           </div>
         </div>
       )}
-
-      {/* Danger zone */}
-      <div style={{ ...cardStyle, border: "1px solid rgba(248,113,113,0.2)", background: "#110a0a" }}>
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(248,113,113,0.4), transparent)" }} />
-        <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#f87171", marginBottom: "0.5rem" }}>Nebezpečná zóna</h2>
-        <p style={{ fontSize: 13, color: "#ffffff", marginBottom: "1.5rem" }}>Tyto akce jsou nevratné. Postupujte opatrně.</p>
-
-        {/* Reset account */}
-        <div style={{ padding: "1.25rem", background: "#0a0a0a", border: "1px solid #2a2a2a", borderRadius: 12, marginBottom: "1rem" }}>
-          <div style={{ fontSize: 14, fontWeight: 600, color: "#fbbf24", marginBottom: 4 }}>Resetovat účet</div>
-          <p style={{ fontSize: 12, color: "#ffffff", marginBottom: "1rem" }}>
-            Smaže všechny nákupy, prodeje, bannery a vynuluje kapitál. Účet zůstane aktivní.
-          </p>
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-            <input
-              type="text"
-              placeholder='Napište "reset" pro potvrzení'
-              value={resetConfirm}
-              onChange={e => setResetConfirm(e.target.value)}
-              style={{ ...inputStyle, flex: 1 }}
-            />
-            <button
-              onClick={resetAccount}
-              disabled={resetting || resetConfirm !== "reset"}
-              style={{
-                padding: "0.75rem 1.25rem", fontSize: 13, fontWeight: 700,
-                background: resetConfirm === "reset" ? "#fbbf24" : "#1a1a1a",
-                border: "none", borderRadius: 10,
-                color: resetConfirm === "reset" ? "#000" : "#ededed",
-                cursor: resetConfirm === "reset" ? "pointer" : "default",
-                whiteSpace: "nowrap" as const,
-              }}
-            >
-              {resetting ? "Resetuji..." : "Resetovat"}
-            </button>
-          </div>
-          {resetMsg && <p style={{ fontSize: 13, color: resetMsg.startsWith("✓") ? "#34d399" : "#f87171", marginTop: 8 }}>{resetMsg}</p>}
-        </div>
-
-        {/* Delete account */}
-        <div style={{ padding: "1.25rem", background: "#0a0a0a", border: "1px solid rgba(248,113,113,0.2)", borderRadius: 12 }}>
-          <div style={{ fontSize: 14, fontWeight: 600, color: "#f87171", marginBottom: 4 }}>Smazat účet</div>
-          <p style={{ fontSize: 12, color: "#ffffff", marginBottom: "1rem" }}>
-            Trvale smaže váš účet a všechna data. Tato akce je nevratná.
-          </p>
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-            <input
-              type="text"
-              placeholder='Napište "smazat" pro potvrzení'
-              value={deleteConfirm}
-              onChange={e => setDeleteConfirm(e.target.value)}
-              style={{ ...inputStyle, flex: 1 }}
-            />
-            <button
-              onClick={deleteAccount}
-              disabled={deleting || deleteConfirm !== "smazat"}
-              style={{
-                padding: "0.75rem 1.25rem", fontSize: 13, fontWeight: 700,
-                background: deleteConfirm === "smazat" ? "#f87171" : "#1a1a1a",
-                border: "none", borderRadius: 10,
-                color: deleteConfirm === "smazat" ? "#000" : "#ededed",
-                cursor: deleteConfirm === "smazat" ? "pointer" : "default",
-                whiteSpace: "nowrap" as const,
-              }}
-            >
-              {deleting ? "Mažu..." : "Smazat účet"}
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Google Sheets video modal */}
       {sheetsVideoOpen && (
