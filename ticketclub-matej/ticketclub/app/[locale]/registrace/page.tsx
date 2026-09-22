@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUpWithEmail, signInWithGoogle } from "@/lib/auth/actions";
@@ -14,14 +14,6 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
-  }, []);
-
   async function handleRegister() {
     if (!fullName || !email || !password || !confirmPassword) {
       return setError("Vyplňte všechna pole.");
@@ -34,43 +26,17 @@ export default function RegisterPage() {
     setSuccess("");
 
     try {
-      // Execute reCAPTCHA
-      const token = await new Promise<string>((resolve, reject) => {
-        (window as any).grecaptcha.ready(() => {
-          (window as any).grecaptcha
-            .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, { action: "register" })
-            .then(resolve)
-            .catch(reject);
-        });
-      });
-
-      // Verify on server
-      const captchaRes = await fetch("/api/recaptcha/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
-      const captchaData = await captchaRes.json();
-
-      if (!captchaData.success) {
-        setError("Ověření reCAPTCHA selhalo. Zkuste to znovu.");
-        setLoading(false);
-        return;
-      }
-
-      // Continue with normal registration
       const result = await signUpWithEmail(email, password, fullName);
       if (result?.error) {
         setError(result.error);
       } else if (result?.success) {
         setSuccess(result.success);
-        // Redirect to dashboard after successful registration
         setTimeout(() => {
           router.push("/nakupy");
         }, 500);
       }
     } catch (e) {
-      setError("Chyba reCAPTCHA. Zkuste to znovu.");
+      setError("Chyba registrace. Zkuste to znovu.");
     }
 
     setLoading(false);
