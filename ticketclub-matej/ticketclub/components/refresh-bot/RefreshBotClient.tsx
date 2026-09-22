@@ -51,7 +51,7 @@ export default function RefreshBotClient() {
         <div style={{ display: "flex", flexDirection: "column" as const, gap: "1rem" }}>
           {[
             { step: "1", title: "Stáhněte a nainstalujte", desc: "Stáhněte ZIP soubor, rozbalte a v Chrome otevřete chrome://extensions → režim pro vývojáře → načíst rozbalené → vyberte složku." },
-            { step: "2", title: "Zadejte licenční klíč", desc: "Otevřete rozšíření a zadejte svůj licenční klíč a email z účtu zde: https://app.ticketclub.vip/ucet" },
+            { step: "2", title: "Zadejte licenční klíč", desc: "Otevřete rozšíření a zadejte svůj licenční klíč a email z účtu zde: https://refreshbot.vercel.app/ucet" },
             { step: "3", title: "Otevřete Ticketmaster", desc: "Přejděte na stránku eventu na Ticketmaster kde chcete sledovat vstupenky a zvolte počet vstupenek a případně i cenovou kategorii." },
             { step: "4", title: "Spusťte bota", desc: "Klikněte na Start v rozšíření, nastavte interval obnovování a bot začne automaticky hledat vstupenky." },
             { step: "5", title: "Bot najde vstupenky", desc: "Jakmile bot najde dostupné vstupenky, automaticky klikne na Get Tickets a upozorní vás zvukem." },

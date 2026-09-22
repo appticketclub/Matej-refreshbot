@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: subscription.stripe_customer_id,
-      return_url: `https://app.ticketclub.vip/ucet`,
+      return_url: `https://refreshbot.vercel.app/ucet`,
     });
 
     return NextResponse.json({ url: portalSession.url });

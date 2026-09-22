@@ -17,8 +17,8 @@ export default function Sidebar({
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isProduction = typeof window !== "undefined"
-    ? window.location.hostname === "app.ticketclub.vip"
-    : process.env.NEXT_PUBLIC_SITE_URL === "https://app.ticketclub.vip";
+    ? window.location.hostname === "refreshbot.vercel.app"
+    : process.env.NEXT_PUBLIC_SITE_URL === "https://refreshbot.vercel.app";
 
   const navItems = [
     { id: "uvod", label: "Úvod", icon: null },

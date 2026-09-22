@@ -118,8 +118,8 @@ export async function POST(request: NextRequest) {
       line_items: [{ price: priceId, quantity: 1 }],
       mode: "subscription",
       allow_promotion_codes: false,
-      success_url: `https://app.ticketclub.vip/dostupne-sluzby?upgraded=true`,
-      cancel_url: `https://app.ticketclub.vip/dostupne-sluzby?cancelled=true`,
+      success_url: `https://refreshbot.vercel.app/dostupne-sluzby?upgraded=true`,
+      cancel_url: `https://refreshbot.vercel.app/dostupne-sluzby?cancelled=true`,
       metadata: { supabase_user_id: user.id },
       subscription_data: {
         ...(trialDays > 0 ? { trial_period_days: trialDays } : {}),

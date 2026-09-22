@@ -14,7 +14,7 @@ export default function ForgotPasswordClient() {
     setError("");
     const supabase = createClient();
     const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://app.ticketclub.vip/reset-hesla",
+      redirectTo: "https://refreshbot.vercel.app/reset-hesla",
     });
     if (err) setError(err.message);
     else setSent(true);

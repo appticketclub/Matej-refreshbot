@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   }
 
   const token = tokenData.token;
-  const verifyUrl = `https://app.ticketclub.vip/api/launcher/verify?token=${token}`;
+  const verifyUrl = `https://refreshbot.vercel.app/api/launcher/verify?token=${token}`;
   const urlParam = startUrl ? startUrl : "";
 
   if (os === "mac") {
@@ -80,7 +80,7 @@ echo "Odpoved serveru: $RESPONSE"
 if [ "$RESPONSE" != "VALID" ]; then
   echo ""
   echo "[CHYBA] Licence neni platna nebo vyprsela."
-  echo "Prihlaste se na app.ticketclub.vip"
+  echo "Prihlaste se na refreshbot.vercel.app"
   echo ""
   read -p "Stisknete Enter pro ukonceni..."
   exit 1
@@ -169,7 +169,7 @@ if "!RESPONSE!"=="VALID" (
 
 echo.
 echo  [CHYBA] Licence neni platna nebo vyprsela.
-echo  Prihlaste se na app.ticketclub.vip
+echo  Prihlaste se na refreshbot.vercel.app
 echo.
 pause
 exit /b 1

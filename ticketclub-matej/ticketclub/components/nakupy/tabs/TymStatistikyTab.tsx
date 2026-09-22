@@ -297,7 +297,7 @@ export default function TymStatistikyTab() {
 
             {/* Footer */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "1rem", borderTop: "1px solid rgba(212,175,55,0.1)" }}> 
-              <span style={{ fontSize: 11, color: "rgba(212,175,55,0.4)", letterSpacing: "0.05em" }}>ticketclub.vip</span> 
+              <span style={{ fontSize: 11, color: "rgba(212,175,55,0.4)", letterSpacing: "0.05em" }}>refreshbot.vercel.app</span> 
               <div style={{ display: "flex", gap: 4 }}> 
                 {[...Array(3)].map((_, i) => ( 
                   <div key={i} style={{ width: 4, height: 4, borderRadius: "50%", background: "#D4AF37", opacity: 1 - i * 0.35 }} /> 
@@ -413,7 +413,7 @@ export default function TymStatistikyTab() {
 
               {/* Footer */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "1rem", borderTop: "1px solid rgba(212,175,55,0.1)" }}> 
-                <span style={{ fontSize: 11, color: "rgba(212,175,55,0.4)", letterSpacing: "0.05em" }}>ticketclub.vip</span> 
+                <span style={{ fontSize: 11, color: "rgba(212,175,55,0.4)", letterSpacing: "0.05em" }}>refreshbot.vercel.app</span> 
                 <div style={{ display: "flex", gap: 4 }}> 
                   {[...Array(3)].map((_, i) => ( 
                     <div key={i} style={{ width: 4, height: 4, borderRadius: "50%", background: "#D4AF37", opacity: 1 - i * 0.35 }} /> 

@@ -265,7 +265,7 @@ export default function UcetPageClient({ user, profile, subscription }: { user: 
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      const importEmail = `${user.id.substring(0, 8)}@mail.ticketclub.vip`;
+      const importEmail = `${user.id.substring(0, 8)}@mail.refreshbot.vercel.app`;
       await supabase.from("profiles")
         .update({ import_email: importEmail })
         .eq("id", user.id);
@@ -586,10 +586,10 @@ export default function UcetPageClient({ user, profile, subscription }: { user: 
             Přeposílejte potvrzovací emaily z Ticketmaster a nákupy se automaticky přidají do Evidence.
           </div>
           <div
-            onClick={() => navigator.clipboard.writeText(`${user?.id?.substring(0, 8)}@mail.ticketclub.vip`)}
+            onClick={() => navigator.clipboard.writeText(`${user?.id?.substring(0, 8)}@mail.refreshbot.vercel.app`)}
             style={{ padding: "0.6rem 1rem", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#4ade80", fontSize: 13, fontFamily: "monospace", cursor: "pointer", userSelect: "all" as const, marginBottom: "0.5rem" }}
           >
-            {user?.id?.substring(0, 8)}@mail.ticketclub.vip
+            {user?.id?.substring(0, 8)}@mail.refreshbot.vercel.app
           </div>
           <div style={{ fontSize: 11, color: "#525252" }}>Klikněte pro zkopírování.</div>
         </div>
@@ -601,7 +601,7 @@ export default function UcetPageClient({ user, profile, subscription }: { user: 
           </div>
           <div style={{ position: "relative" }}>
             <div style={{ padding: "0.6rem 1rem", background: "#0a0a0a", border: "1px solid #2a2a2a", borderRadius: 8, color: "#4ade80", fontSize: 13, fontFamily: "monospace", filter: "blur(6px)", userSelect: "none" as const, marginBottom: "0.5rem" }}>
-              xxxxxxxx@mail.ticketclub.vip
+              xxxxxxxx@mail.refreshbot.vercel.app
             </div>
             <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <button

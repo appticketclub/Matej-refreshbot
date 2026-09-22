@@ -10,10 +10,10 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(`https://app.ticketclub.vip${next}`);
+      return NextResponse.redirect(`https://refreshbot.vercel.app${next}`);
     }
     console.error("Auth error:", error);
   }
 
-  return NextResponse.redirect(`https://app.ticketclub.vip/prihlaseni?error=auth`);
+  return NextResponse.redirect(`https://refreshbot.vercel.app/prihlaseni?error=auth`);
 }
