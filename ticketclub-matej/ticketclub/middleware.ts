@@ -67,9 +67,9 @@ export function middleware(request: NextRequest) {
     // Supabase stores auth in these cookies
     const token =
       request.cookies.get("sb-access-token")?.value ||
-      request.cookies.get(`sb-eoeiuohwxulkgppjaogk-auth-token`)?.value ||
-      request.cookies.get(`sb-eoeiuohwxulkgppjaogk-auth-token.0`)?.value ||
-      request.cookies.get(`sb-eoeiuohwxulkgppjaogk-auth-token.1`)?.value;
+      request.cookies.get(`sb-vdfcobwtszlysbhytiwg-auth-token`)?.value ||
+      request.cookies.get(`sb-vdfcobwtszlysbhytiwg-auth-token.0`)?.value ||
+      request.cookies.get(`sb-vdfcobwtszlysbhytiwg-auth-token.1`)?.value;
 
     if (!token) {
       const loginUrl = new URL("/prihlaseni", request.url);
