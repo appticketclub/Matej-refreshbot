@@ -37,7 +37,9 @@ export default function LoginPage() {
         // Session will expire when browser closes naturally
       }
 
-      window.location.href = "/dostupne-sluzby";
+      await new Promise(resolve => setTimeout(resolve, 500));
+      router.push("/dostupne-sluzby");
+      router.refresh();
     } catch (e: any) {
       setError("Chyba přihlášení. Zkuste to znovu.");
     }
