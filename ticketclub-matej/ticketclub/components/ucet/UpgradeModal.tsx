@@ -136,9 +136,9 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
             {/* PRO */}
             {currentPlan !== "pro" && currentPlan !== "scale" && (
             <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.5rem" }}>
-              <div style={{ fontSize: 11, color: "#525252", letterSpacing: "0.1em", marginBottom: 8 }}>PRO</div>
+              <div style={{ fontSize: 11, color: "#525252", letterSpacing: "0.1em", marginBottom: 8 }}>1 Profil</div>
               <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
-                {billing === "monthly" ? "€19.99" : "€179.99"}
+                {billing === "monthly" ? "€59.95" : "€539.95"}
                 <span style={{ fontSize: 13, color: "#525252" }}>
                   {billing === "monthly" ? "/mes" : "/rok"}
                 </span>
@@ -148,12 +148,8 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
               </div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 8, marginBottom: "1.5rem" }}>
                 {[
-                  ["Sales Tracker", true],
-                  ["Chrome Launcher", true],
-                  ["Email Import", true],
-                  ["Refresh Bot (1 profil)", true],
-                  ["Refresh Bot unlimited", false],
-                  ["Discord Watcher Bot", false],
+                  ["Refresh Bot (1 Chrome profil)", true],
+                  ["Neomezený počet profilů", false],
                 ].map(([label, ok]) => (
                   <div key={label as string} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: ok ? "#fff" : "#525252" }}>
                     <span style={{ color: ok ? "#4ade80" : "#333" }}>{ok ? "✓" : "—"}</span> {label as string}
@@ -165,7 +161,7 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
                 disabled={loading === (billing === "monthly" ? "monthly" : "yearly")}
                 style={{ width: "100%", padding: "0.65rem", background: "transparent", border: "1px solid #2a2a2a", borderRadius: 10, color: "#fff", fontSize: 14, fontWeight: 700, cursor: loading ? "default" : "pointer", opacity: loading ? 0.7 : 1 }}
               >
-                {loading === (billing === "monthly" ? "monthly" : "yearly") ? "Načítám..." : "Upgradovat na PRO →"}
+                {loading === (billing === "monthly" ? "monthly" : "yearly") ? "Načítám..." : "Získat 1 Profil →"}
               </button>
             </div>
             )}
@@ -173,9 +169,9 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
             {/* SCALE */}
             <div style={{ background: "#111", border: "2px solid #3b82f6", borderRadius: 16, padding: "1.5rem", position: "relative" as const }}>
               <div style={{ position: "absolute" as const, top: -12, left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: 11, fontWeight: 700, padding: "4px 14px", borderRadius: 99, whiteSpace: "nowrap" as const }}>Nejoblíbenější</div>
-              <div style={{ fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", marginBottom: 8 }}>SCALE</div>
+              <div style={{ fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", marginBottom: 8 }}>Neomezený</div>
               <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
-                {billing === "monthly" ? "€44.95" : "€399.95"}
+                {billing === "monthly" ? "€79.95" : "€720.00"}
                 <span style={{ fontSize: 13, color: "#525252" }}>
                   {billing === "monthly" ? "/mes" : "/rok"}
                 </span>
@@ -185,12 +181,8 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
               </div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 8, marginBottom: "1.5rem" }}>
                 {[
-                  ["Sales Tracker", true],
-                  ["Chrome Launcher", true],
-                  ["Email Import", true],
-                  ["Refresh Bot (1 profil)", true],
-                  ["Refresh Bot unlimited", true],
-                  ["Discord Watcher Bot", true],
+                  ["Refresh Bot (1 Chrome profil)", true],
+                  ["Neomezený počet profilů", true],
                 ].map(([label, ok]) => (
                   <div key={label as string} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#fff" }}>
                     <span style={{ color: "#4ade80" }}>✓</span> {label as string}
@@ -202,14 +194,14 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
                 disabled={loading === (billing === "monthly" ? "scale_monthly" : "scale_yearly")}
                 style={{ width: "100%", padding: "0.65rem", background: "#3b82f6", border: "none", borderRadius: 10, color: "#fff", fontSize: 14, fontWeight: 700, cursor: loading ? "default" : "pointer", opacity: loading ? 0.7 : 1 }}
               >
-                {loading === (billing === "monthly" ? "scale_monthly" : "scale_yearly") ? "Načítám..." : "Upgradovat na Scale →"}
+                {loading === (billing === "monthly" ? "scale_monthly" : "scale_yearly") ? "Načítám..." : "Získat Neomezený →"}
               </button>
             </div>
           </div>
 
           {/* Proration note */}
           <div style={{ fontSize: 12, color: "#525252", textAlign: "center" as const, marginBottom: "1rem", padding: "0 1rem" }}>
-            💡 Pokud již máte aktivní PRO předplatné, Stripe automaticky vypočítá rozdíl a doplatíte pouze zbývající částku.
+            💡 Pokud již máte aktivní předplatné, Stripe automaticky vypočítá rozdíl a doplatíte pouze zbývající částku.
           </div>
 
           {/* Feature table */}
@@ -217,16 +209,12 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
             <div style={{ background: "#0a0a0a", border: "1px solid #1a1a1a", borderRadius: 12, overflow: "hidden" as const }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 80px 80px", borderBottom: "1px solid #1a1a1a" }}>
                 <div style={{ padding: "10px 16px", fontWeight: 600, color: "#525252" }}>Funkce</div>
-                <div style={{ padding: "10px 0", fontWeight: 600, color: "#525252", textAlign: "center" as const }}>PRO</div>
-                <div style={{ padding: "10px 0", fontWeight: 600, color: "#3b82f6", textAlign: "center" as const }}>SCALE</div>
+                <div style={{ padding: "10px 0", fontWeight: 600, color: "#525252", textAlign: "center" as const }}>1 Profil</div>
+                <div style={{ padding: "10px 0", fontWeight: 600, color: "#3b82f6", textAlign: "center" as const }}>Neomezený</div>
               </div>
               {[
-                ["Email Import", true, true],
-                ["Refresh Bot (1 profil)", true, true],
-                ["Refresh Bot unlimited", false, true],
-                ["Sales Tracker", true, true],
-                ["Chrome Launcher", true, true],
-                ["Discord Watcher Bot", false, true],
+                ["Refresh Bot (1 Chrome profil)", true, true],
+                ["Neomezený počet profilů", false, true],
               ].map(([label, pro, scale], i, arr) => (
                 <div key={label as string} style={{ display: "grid", gridTemplateColumns: "1fr 80px 80px", borderBottom: i < arr.length - 1 ? "1px solid #0d0d0d" : "none" }}>
                   <div style={{ padding: "10px 16px", color: "#ededed" }}>{label as string}</div>
