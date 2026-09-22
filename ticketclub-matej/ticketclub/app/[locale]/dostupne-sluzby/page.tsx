@@ -30,10 +30,9 @@ export default async function DostupneSluzbyPage() {
       <TopNav user={user} profile={profile} />
       <main style={{ padding: "2rem 3rem" }}>
         <div style={{ marginBottom: "2.5rem" }}>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 700, color: "#fff", marginBottom: "0.5rem" }}>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 700, color: "#fff" }}>
             Vítejte zpět{profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}
           </h1>
-          <p style={{ color: "#f5f5f5" }}>Vyberte si nástroj, se kterým chcete pracovat.</p>
         </div>
         <ServicesGrid isPro={isPro} isScale={isScale} isAdmin={isAdmin} user={user} />
       </main>
