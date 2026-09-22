@@ -96,6 +96,7 @@ export async function POST(request: NextRequest) {
     const PROMO_CODES: Record<string, number> = {
       SKOUSKA: 12,
       MENTORING1V1: 180,
+      TRIAL: 7,
     };
 
     const PROMO_CODE_PLAN_RESTRICTION: Record<string, string> = {
