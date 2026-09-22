@@ -69,7 +69,7 @@ export default function ServicesGrid({
     "Email Import": "https://www.youtube.com/embed/zZDGoWBib9s",
   };
 
-  const services = [
+  const allServices = [
     {
       id: "nakupy",
       title: "Evidence nákupů",
@@ -129,6 +129,8 @@ export default function ServicesGrid({
       free: true,
     },
   ];
+
+  const services = allServices.filter(s => s.id === "refresh-bot");
 
   return (
     <div>
