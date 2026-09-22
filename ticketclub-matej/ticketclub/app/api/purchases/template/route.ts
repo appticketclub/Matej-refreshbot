@@ -1,0 +1,61 @@
+import { NextResponse } from "next/server";
+import * as XLSX from "xlsx";
+
+export async function GET() {
+  const wb = XLSX.utils.book_new();
+
+  const headers = [
+    "Datum nákupu",
+    "Kapela / Název akce",
+    "Místo akce",
+    "Datum koncertu",
+    "Počet lístků",
+    "Nákupní cena celkem (EUR)",
+    "Počet prodaných lístků",
+    "Prodejní cena celkem (EUR)",
+    "Burza",
+    "Účet",
+    "Druh vstupenky",
+    "Datum prodeje",
+    "Vyplaceno (ANO/NIE)",
+    "Doručeno (ANO/NIE)",
+    "Poznámky",
+  ];
+
+  const example = [
+    "19.10.2026",
+    "Coldplay",
+    "Praha",
+    "15.08.2026",
+    "2",
+    "300",
+    "0",
+    "500",
+    "Viagogo",
+    "ucet1@gmail.com",
+    "Mobile Transfer",
+    "01.07.2026",
+    "ANO",
+    "ANO",
+    "Poznámka",
+  ];
+
+  const ws = XLSX.utils.aoa_to_sheet([headers, example]);
+
+  ws["!cols"] = [
+    { wch: 14 }, { wch: 25 }, { wch: 15 }, { wch: 14 },
+    { wch: 12 }, { wch: 22 }, { wch: 22 }, { wch: 22 },
+    { wch: 15 }, { wch: 22 }, { wch: 18 }, { wch: 14 },
+    { wch: 18 }, { wch: 16 }, { wch: 20 },
+  ];
+
+  XLSX.utils.book_append_sheet(wb, ws, "Evidence");
+  const buf = XLSX.write(wb, { type: "buffer", bookType: "xlsx" });
+
+  return new NextResponse(buf, {
+    headers: {
+      "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Disposition": 'attachment; filename="ticketclub-sablona.xlsx"',
+    },
+  });
+}
