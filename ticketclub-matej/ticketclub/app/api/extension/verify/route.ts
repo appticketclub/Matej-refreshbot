@@ -77,10 +77,12 @@ export async function GET(request: NextRequest) {
         return new NextResponse("PROFILE_LIMIT", { headers: corsHeaders });
       }
 
-      await supabase
+      const { error: updateError } = await supabase
         .from("extension_licenses")
         .update({ active_profile_id: profileId, last_verified_at: new Date().toISOString() })
         .eq("license_key", key);
+
+      console.log("[verify] update active_profile_id:", profileId, "error:", updateError);
     }
   }
 
