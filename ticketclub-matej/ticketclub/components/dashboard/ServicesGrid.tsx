@@ -97,7 +97,7 @@ export default function ServicesGrid({
     {
       id: "discord-watcher",
       title: "Chrome Launcher",
-      description: "Otevře všechny Chrome profily s Refresh Botem jedním kliknutím. Stáhněte aplikaci a spusťte všechny profily najednou.",
+      description: "Otevře všechny Chrome profily s Refresh Botem jedním kliknutím.",
       badge: "SCALE",
       href: "/discord-watcher",
       icon: "🚀",
