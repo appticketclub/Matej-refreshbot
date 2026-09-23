@@ -138,7 +138,7 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
             <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.5rem" }}>
               <div style={{ fontSize: 11, color: "#525252", letterSpacing: "0.1em", marginBottom: 8 }}>1 Profil</div>
               <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 4, display: "flex", alignItems: "baseline", flexWrap: "wrap" as const }}>
-                {billing === "monthly" ? "€59.95" : "€539.95"}
+                {billing === "monthly" ? "€69.95" : "€629.95"}
                 <span style={{ fontSize: 13, color: "#525252" }}>
                   {billing === "monthly" ? "/mes" : "/rok"}
                 </span>
@@ -184,7 +184,7 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
               <div style={{ position: "absolute" as const, top: -12, left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: 11, fontWeight: 700, padding: "4px 14px", borderRadius: 99, whiteSpace: "nowrap" as const }}>Nejoblíbenější</div>
               <div style={{ fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", marginBottom: 8 }}>Neomezený</div>
               <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 4, display: "flex", alignItems: "baseline", flexWrap: "wrap" as const }}>
-                {billing === "monthly" ? "€79.95" : "€720.00"}
+                {billing === "monthly" ? "€99.95" : "€889.95"}
                 <span style={{ fontSize: 13, color: "#525252" }}>
                   {billing === "monthly" ? "/mes" : "/rok"}
                 </span>
