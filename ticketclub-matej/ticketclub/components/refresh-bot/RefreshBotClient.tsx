@@ -26,7 +26,7 @@ export default function RefreshBotClient() {
         </p>
 
         <a
-          href="https://mega.nz/folder/zBFTRKYZ#NazWHgpLgy6L_iFJuSynvQ"
+          href="https://mega.nz/folder/zIM3xZ6R#Yd_hFi5tMeI2NL1M-hIMNw"
           target="_blank"
           rel="noopener noreferrer"
           style={{
