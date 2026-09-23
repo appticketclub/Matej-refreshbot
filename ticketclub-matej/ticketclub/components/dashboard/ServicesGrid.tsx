@@ -130,7 +130,7 @@ export default function ServicesGrid({
     },
   ];
 
-  const services = allServices.filter(s => s.id === "refresh-bot");
+  const services = allServices.filter(s => s.id === "refresh-bot" || s.id === "discord-watcher");
 
   return (
     <div>
