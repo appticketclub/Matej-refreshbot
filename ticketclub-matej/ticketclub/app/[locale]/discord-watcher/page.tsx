@@ -39,9 +39,10 @@ export default function DiscordWatcherPage() {
         <div style={{ display: "flex", flexDirection: "column" as const, gap: "0.75rem" }}>
           {[
             "Stáhněte soubor z odkazu výše",
-            "Spusťte aplikaci RefreshBot Launcher.exe",
-            "Při prvním spuštění vyberte Chrome profily s Refresh Botem",
-            "Uložte výběr a klikněte ▶ Spustit vybrané",
+            "Nainstalujte Python z python.org — při instalaci zaškrtněte 'Add Python to PATH'",
+            "Spusťte soubor RefreshBot Launcher.py dvojklikem",
+            "Při prvním spuštění vyberte Chrome profily s Refresh Botem a uložte výběr",
+            "Klikněte ▶ Spustit vybrané — profily se otevřou automaticky",
           ].map((step, i) => (
             <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
               <div style={{ minWidth: 24, height: 24, background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#a855f7" }}>{i + 1}</div>
