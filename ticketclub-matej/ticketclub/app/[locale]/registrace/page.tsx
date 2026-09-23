@@ -164,8 +164,6 @@ export default function RegisterPage() {
           background: "linear-gradient(to right, #080808 0%, transparent 30%)" 
         }} />
         <div style={{ position: "absolute", bottom: "2.5rem", left: "2.5rem", right: "2.5rem" }}>
-          <p style={{ color: "#fff", fontSize: "1.5rem", fontWeight: 700 }}>Sledujte své zisky.</p>
-          <p style={{ color: "#71717a", marginTop: "0.5rem" }}>Profesionální P&L tracker pro ticket resellery.</p>
         </div>
       </div>
 
