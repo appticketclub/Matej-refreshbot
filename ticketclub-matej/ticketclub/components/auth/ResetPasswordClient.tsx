@@ -39,7 +39,7 @@ export default function ResetPasswordClient() {
     <div style={{ minHeight: "100vh", background: "#080808", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
       <div style={{ width: "100%", maxWidth: 420 }}>
         <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
-          <img src="/logo.png" alt="TicketClub" style={{ height: 40, width: "auto", objectFit: "contain" }} />
+          <img src="/logo.png" alt="RefreshBot" style={{ height: 40, width: "auto", objectFit: "contain" }} />
         </div>
         <div style={{ background: "#111111", border: "1px solid #1f1f1f", borderRadius: 20, padding: "2rem", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, #ffffff, transparent)" }} />

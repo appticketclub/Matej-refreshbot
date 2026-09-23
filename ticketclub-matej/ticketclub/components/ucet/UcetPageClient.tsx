@@ -235,7 +235,7 @@ export default function UcetPageClient({ user, profile, subscription }: { user: 
     XLSX.utils.book_append_sheet(wb, ws, "Záloha");
 
     const date = new Date().toISOString().split("T")[0];
-    XLSX.writeFile(wb, `ticketclub-zaloha-${date}.xlsx`);
+    XLSX.writeFile(wb, `refreshbot-zaloha-${date}.xlsx`);
   }
 
   useEffect(() => {
@@ -404,7 +404,7 @@ export default function UcetPageClient({ user, profile, subscription }: { user: 
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, #7c3aed, transparent)" }} />
           <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#fff", marginBottom: "0.5rem" }}>Extension licence</h2>
           <p style={{ fontSize: 12, color: "#ffffff", marginBottom: "1.25rem" }}>
-            Použijte tento klíč pro aktivaci TicketClub Extension v Chrome.
+            Použijte tento klíč pro aktivaci RefreshBot Extension v Chrome.
           </p>
 
           {loadingKey ? (

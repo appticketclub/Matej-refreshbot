@@ -63,7 +63,7 @@ export default function TymStatistikyTab() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `ticketclub-tym-${period}.png`;
+        a.download = `refreshbot-tym-${period}.png`;
         a.click();
         URL.revokeObjectURL(url);
       });
@@ -81,9 +81,9 @@ export default function TymStatistikyTab() {
       });
       canvas.toBlob(async (blob) => {
         if (!blob) return;
-        const file = new File([blob], "ticketclub-tym.png", { type: "image/png" });
+        const file = new File([blob], "refreshbot-tym.png", { type: "image/png" });
         if (navigator.share && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: "TicketClub Tým" });
+          await navigator.share({ files: [file], title: "RefreshBot Tým" });
         } else {
           const url = URL.createObjectURL(blob);
           window.open(url, "_blank");
@@ -233,7 +233,7 @@ export default function TymStatistikyTab() {
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}> 
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}> 
-                <img src="/logo.png" alt="TicketClub" style={{ height: 24, width: "auto" }} onError={e => (e.currentTarget.style.display = "none")} /> 
+                <img src="/logo.png" alt="RefreshBot" style={{ height: 24, width: "auto" }} onError={e => (e.currentTarget.style.display = "none")} /> 
                 <div> 
                   <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.15em", color: "#D4AF37" }}>TÍMOVÉ ŠTATISTIKY</div> 
                   <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(212,175,55,0.7)", letterSpacing: "0.08em" }}> 
@@ -349,7 +349,7 @@ export default function TymStatistikyTab() {
               {/* Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}> 
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}> 
-                  <img src="/logo.png" alt="TicketClub" style={{ height: 24, width: "auto" }} onError={e => (e.currentTarget.style.display = "none")} /> 
+                  <img src="/logo.png" alt="RefreshBot" style={{ height: 24, width: "auto" }} onError={e => (e.currentTarget.style.display = "none")} /> 
                   <div> 
                     <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: "0.15em", color: "#D4AF37" }}>TÍMOVÉ ŠTATISTIKY</div> 
                     <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(212,175,55,0.7)", letterSpacing: "0.08em" }}> 

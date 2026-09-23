@@ -32,7 +32,7 @@ export default function PresaleBotClient() {
             rel="noopener noreferrer"
             style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.75rem 1.5rem", background: "#5865F2", border: "none", borderRadius: 10, color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", textDecoration: "none" }}
           >
-            Discord TicketClub
+            Discord RefreshBot
           </a>
         </div>
       </div>

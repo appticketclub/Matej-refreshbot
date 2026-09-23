@@ -62,7 +62,7 @@ export default function LoginPage() {
       }}>
         {/* Logo */}
         <div style={{ marginBottom: "2.5rem" }}>
-          <img src="/logo.png" alt="TicketClub" style={{ height: 40, width: "auto", objectFit: "contain" }} />
+          <img src="/logo.png" alt="RefreshBot" style={{ height: 40, width: "auto", objectFit: "contain" }} />
         </div>
         <h1 style={{ fontSize: "2.5rem", fontWeight: 700, color: "#fff", marginBottom: "0.5rem" }}>Přihlášení</h1>
         <p style={{ color: "#ededed" , marginBottom: "2.5rem" }}>Vítejte zpět. Zadejte své údaje.</p>

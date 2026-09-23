@@ -54,7 +54,7 @@ export default function SurveyModal({ onClose }: { onClose: () => void }) {
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg, #4ade80, #22c55e)" }} />
 
         <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#fff", marginBottom: "0.5rem", textAlign: "center" as const }}>
-          Jak hodnotíte TicketClub? 🎟️
+          Jak hodnotíte RefreshBot? 🎟️
         </h2>
         <p style={{ fontSize: 13, color: "#525252", textAlign: "center" as const, marginBottom: "1.5rem" }}>
           Váš názor nám pomáhá zlepšovat aplikaci. Zabere to jen 30 sekund.

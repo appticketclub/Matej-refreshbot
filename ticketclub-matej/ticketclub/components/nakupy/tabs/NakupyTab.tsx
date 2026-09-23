@@ -1146,7 +1146,7 @@ export default function NakupyTab() {
               </p>
               <a
                 href="/api/purchases/template"
-                download="ticketclub-sablona.xlsx"
+                download="refreshbot-sablona.xlsx"
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "8px 16px", fontSize: 12, fontWeight: 700,

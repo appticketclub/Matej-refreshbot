@@ -27,7 +27,7 @@ export default function ChromeLauncherClient({ tokenData }: { tokenData: any }) 
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = os === "mac" ? "ticketclub-launcher.sh" : "ticketclub-launcher.bat";
+      a.download = os === "mac" ? "refreshbot-launcher.sh" : "refreshbot-launcher.bat";
       a.click();
       URL.revokeObjectURL(url);
       setDownloaded(true);
@@ -97,9 +97,9 @@ export default function ChromeLauncherClient({ tokenData }: { tokenData: any }) 
           <div style={{ marginTop: "0.75rem", padding: "0.75rem 1rem", background: "#0a0a0a", border: "1px solid #1f1f1f", borderRadius: 10 }}>
             <p style={{ fontSize: 12, color: "#ededed" , margin: 0, lineHeight: 1.6 }}>
               <strong style={{ color: "#ffffff" }}>Mac instrukce:</strong> Po stažení otevřete Terminal, napište{" "}
-              <code style={{ background: "#1a1a1a", padding: "1px 6px", borderRadius: 4, color: "#a78bfa" }}>chmod +x ~/Downloads/ticketclub-launcher.sh</code>{" "}
+              <code style={{ background: "#1a1a1a", padding: "1px 6px", borderRadius: 4, color: "#a78bfa" }}>chmod +x ~/Downloads/refreshbot-launcher.sh</code>{" "}
               a pak{" "}
-              <code style={{ background: "#1a1a1a", padding: "1px 6px", borderRadius: 4, color: "#a78bfa" }}>~/Downloads/ticketclub-launcher.sh</code>
+              <code style={{ background: "#1a1a1a", padding: "1px 6px", borderRadius: 4, color: "#a78bfa" }}>~/Downloads/refreshbot-launcher.sh</code>
             </p>
           </div>
         )}

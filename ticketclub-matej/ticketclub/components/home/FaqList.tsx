@@ -1,7 +1,7 @@
 "use client";
 
 const faqs = [
-  { q: "Je TicketClub legální?", a: "Ano. TicketClub je pouze sledovací nástroj pro vaše vlastní obchodní aktivity. Legálnost resellingu závisí na zákonech vaší země." },
+  { q: "Je RefreshBot legální?", a: "Ano. RefreshBot je pouze sledovací nástroj pro vaše vlastní obchodní aktivity. Legálnost resellingu závisí na zákonech vaší země." },
   { q: "Jak funguje Chrome Extension?", a: "Extension automaticky přidává lístky do košíku na Ticketmaster ve vámi nastavený čas. Je dostupná pouze pro Pro uživatele s platnou licencí." },
   { q: "Mohu importovat existující data?", a: "Ano. Stáhněte naši Excel šablonu, vyplňte data a nahrajte. Import proběhne automaticky." },
   { q: "Jak funguje AI Screenshot import?", a: "Nahrajte screenshot potvrzení z Viagogo nebo Ticketmaster a AI automaticky vyplní všechna pole nákupu." },

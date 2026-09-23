@@ -27,7 +27,7 @@ export default function ForgotPasswordClient() {
 
         {/* Logo */}
         <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
-          <img src="/logo.png" alt="TicketClub" style={{ height: 40, width: "auto", objectFit: "contain" }} />
+          <img src="/logo.png" alt="RefreshBot" style={{ height: 40, width: "auto", objectFit: "contain" }} />
         </div>
 
         <div style={{ background: "#111111", border: "1px solid #1f1f1f", borderRadius: 20, padding: "2rem", position: "relative", overflow: "hidden" }}>

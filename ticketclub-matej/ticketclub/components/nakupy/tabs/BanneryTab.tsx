@@ -233,7 +233,7 @@ function BannerCard({ banner }: { banner: Banner }) {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         const safeName = banner.event_name.replace(/\s+/g, "-").toLowerCase();
-        a.download = `ticketclub-${safeName}.png`;
+        a.download = `refreshbot-${safeName}.png`;
         a.click();
         URL.revokeObjectURL(a.href);
       });
@@ -273,15 +273,15 @@ function BannerCard({ banner }: { banner: Banner }) {
 
       canvas.toBlob(async (blob) => {
         if (!blob) return;
-        const file = new File([blob], "ticketclub-flip.png", { type: "image/png" });
+        const file = new File([blob], "refreshbot-flip.png", { type: "image/png" });
         if (navigator.share && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: "Můj flip na TicketClub" });
+          await navigator.share({ files: [file], title: "Můj flip na RefreshBot" });
         } else {
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
           const safeName = banner.event_name.replace(/\s+/g, "-").toLowerCase();
-          a.download = `ticketclub-${safeName}.png`;
+          a.download = `refreshbot-${safeName}.png`;
           a.click();
           URL.revokeObjectURL(url);
         }

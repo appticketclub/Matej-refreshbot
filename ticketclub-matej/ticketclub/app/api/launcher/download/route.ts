@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
 
 echo ""
 echo "================================================"
-echo "  TICKETCLUB - Chrome Profile Launcher (Mac)"
+echo "  REFRESHBOT - Chrome Profile Launcher (Mac)"
 echo "================================================"
 echo ""
 echo "Overuji licenci..."
@@ -136,7 +136,7 @@ rm -- "$0"
     return new NextResponse(sh, {
       headers: {
         "Content-Type": "application/octet-stream",
-        "Content-Disposition": 'attachment; filename="ticketclub-launcher.sh"',
+        "Content-Disposition": 'attachment; filename="refreshbot-launcher.sh"',
       },
     });
   }
@@ -144,11 +144,11 @@ rm -- "$0"
   // Generate .bat file (Windows default)
   const bat = `@echo off
 setlocal enabledelayedexpansion
-title TicketClub Chrome Launcher
+title RefreshBot Chrome Launcher
 
 echo.
 echo  ================================================
-echo   TICKETCLUB - Chrome Profile Launcher
+echo   REFRESHBOT - Chrome Profile Launcher
 echo  ================================================
 echo.
 echo  Overuji licenci...
@@ -230,7 +230,7 @@ echo.
   return new NextResponse(bat, {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": 'attachment; filename="ticketclub-launcher.bat"',
+      "Content-Disposition": 'attachment; filename="refreshbot-launcher.bat"',
     },
   });
 }

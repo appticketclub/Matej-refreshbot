@@ -258,18 +258,18 @@ export default function SellModal({ purchase, onClose, onSave }: {
         URL.revokeObjectURL(url);
         canvas.toBlob(async (blob) => {
           if (!blob) return;
-          const file = new File([blob], "ticketclub-flip.png", { type: "image/png" });
+          const file = new File([blob], "refreshbot-flip.png", { type: "image/png" });
           if (navigator.share && navigator.canShare({ files: [file] })) {
             await navigator.share({
               files: [file],
-              title: "Můj flip na TicketClub",
+              title: "Můj flip na RefreshBot",
             });
           } else {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
             const safeName = purchase.event_name.replace(/\s+/g, "-").toLowerCase();
-            a.download = "ticketclub-" + safeName + ".png";
+            a.download = "refreshbot-" + safeName + ".png";
             a.click();
             URL.revokeObjectURL(url);
           }

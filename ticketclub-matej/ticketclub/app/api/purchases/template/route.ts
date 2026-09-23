@@ -55,7 +55,7 @@ export async function GET() {
   return new NextResponse(buf, {
     headers: {
       "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "Content-Disposition": 'attachment; filename="ticketclub-sablona.xlsx"',
+      "Content-Disposition": 'attachment; filename="refreshbot-sablona.xlsx"',
     },
   });
 }

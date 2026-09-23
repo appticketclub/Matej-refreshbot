@@ -23,7 +23,6 @@ export default function TopNav({ user, profile }: { user: any; profile: any }) {
     }}>
       {/* LEFT — Logo */}
       <a href="/dostupne-sluzby" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <img src="/logo.png" alt="TicketClub" style={{ height: 36, width: "auto", objectFit: "contain" }} />
       </a>
 
       {/* RIGHT — User menu */}
