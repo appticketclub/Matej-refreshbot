@@ -24,7 +24,7 @@ export default function DiscordWatcherPage() {
           Stáhněte aplikaci Chrome Launcher a spusťte všechny profily najednou.
         </p>
         <a
-          href="https://mega.nz/folder/3c92SLAZ#GQxtqlgzmtW1XoiKYeVXiw"
+          href="https://mega.nz/folder/eBsjBAAC#bierl0Ge8Msn3w9kcerEHw"
           target="_blank"
           rel="noopener noreferrer"
           style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.75rem 1.5rem", background: "linear-gradient(135deg, #a855f7, #7c3aed)", border: "none", borderRadius: 10, color: "#fff", fontWeight: 700, fontSize: 14, textDecoration: "none" }}
