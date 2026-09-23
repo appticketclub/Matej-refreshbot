@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         console.log("[webhook] isScale:", isScale);
         console.log("[webhook] extensionPlan:", extensionPlan);
         
-        await supabase.from("subscriptions").upsert({
+        const { error: subError } = await supabase.from("subscriptions").upsert({
           user_id: userId,
           plan: isScale ? "scale" : isProMax ? "pro_max" : "pro",
           plan_interval: planInterval,
@@ -95,10 +95,13 @@ export async function POST(request: NextRequest) {
           current_period_end: periodEnd,
           updated_at: new Date().toISOString(),
         }, { onConflict: "user_id" });
+        if (subError) console.error("[webhook] Supabase subscriptions error:", subError);
         if (isScale) {
-          await supabase.from("extension_licenses").update({ plan: "unlimited" }).eq("user_id", userId);
+          const { error: licError } = await supabase.from("extension_licenses").update({ plan: "unlimited" }).eq("user_id", userId);
+          if (licError) console.error("[webhook] Supabase licenses error:", licError);
         } else {
-          await supabase.from("extension_licenses").update({ plan: "single" }).eq("user_id", userId);
+          const { error: licError } = await supabase.from("extension_licenses").update({ plan: "single" }).eq("user_id", userId);
+          if (licError) console.error("[webhook] Supabase licenses error:", licError);
         }
         // Reactivate launcher token if exists, otherwise skip
         const { data: existingToken } = await supabase
@@ -165,7 +168,7 @@ export async function POST(request: NextRequest) {
         console.log("[webhook] plan:", isScale ? "scale" : "pro");
         const extensionPlan = isScale || isProMax ? "unlimited" : "single";
         
-        await supabase.from("subscriptions").upsert({
+        const { error: subError } = await supabase.from("subscriptions").upsert({
           user_id: userId,
           plan: isScale ? "scale" : isProMax ? "pro_max" : "pro",
           plan_interval: planInterval,
@@ -175,10 +178,13 @@ export async function POST(request: NextRequest) {
           current_period_end: periodEnd,
           updated_at: new Date().toISOString(),
         }, { onConflict: "user_id" });
+        if (subError) console.error("[webhook] Supabase subscriptions error:", subError);
         if (isScale) {
-          await supabase.from("extension_licenses").update({ plan: "unlimited" }).eq("user_id", userId);
+          const { error: licError } = await supabase.from("extension_licenses").update({ plan: "unlimited" }).eq("user_id", userId);
+          if (licError) console.error("[webhook] Supabase licenses error:", licError);
         } else {
-          await supabase.from("extension_licenses").update({ plan: "single" }).eq("user_id", userId);
+          const { error: licError } = await supabase.from("extension_licenses").update({ plan: "single" }).eq("user_id", userId);
+          if (licError) console.error("[webhook] Supabase licenses error:", licError);
         }
         // Reactivate launcher token if exists, otherwise skip
         const { data: existingToken } = await supabase
