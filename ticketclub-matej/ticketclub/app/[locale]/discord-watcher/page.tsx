@@ -57,7 +57,7 @@ export default function DiscordWatcherPage() {
         <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: "0.5rem" }}>VIDEO NÁVOD</div>
         <div style={{ fontSize: 13, color: "#525252", marginBottom: "1rem" }}>Sledujte video návod jak používat Chrome Launcher.</div>
         <a
-          href="https://youtu.be/cMOqe1PVGTU"
+          href="https://youtu.be/Oeq1G-Qi1Bo"
           target="_blank"
           rel="noopener noreferrer"
           style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.75rem 1.5rem", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 10, color: "#fff", fontWeight: 600, fontSize: 14, textDecoration: "none" }}

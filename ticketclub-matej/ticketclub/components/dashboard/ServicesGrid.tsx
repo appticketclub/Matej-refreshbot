@@ -61,10 +61,10 @@ export default function ServicesGrid({
   }, []);
 
   const videoMap: Record<string, string> = {
-    "Refresh Bot": "https://www.youtube.com/embed/LJyLx5W9NLU",
+    "Refresh Bot": "https://www.youtube.com/embed/dDOkeYYVEJ4",
     "Discord Watcher Bot": "https://www.youtube.com/embed/cMOqe1PVGTU",
     "Sales Tracker": "https://www.youtube.com/embed/M5XX5B0Wz30",
-    "Chrome Launcher": "https://www.youtube.com/embed/ugbHFLb5Wcs",
+    "Chrome Launcher": "https://www.youtube.com/embed/Oeq1G-Qi1Bo",
     "Pre-sale Bot": "https://www.youtube.com/embed/tLOV3Jn4hzU",
     "Email Import": "https://www.youtube.com/embed/zZDGoWBib9s",
   };
