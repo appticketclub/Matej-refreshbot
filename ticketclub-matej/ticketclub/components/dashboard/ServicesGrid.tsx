@@ -166,7 +166,7 @@ export default function ServicesGrid({
             </div>
             <div style={{ fontSize: 12, color: "#ededed" }}>
               {isPro 
-                ? "Odemkněte Refresh Bot unlimited a Discord Watcher Bot."
+                ? "Spusťte Refresh Bot na neomezeném počtu Chrome profilů současně."
                 : "Spouštěj Refresh Bot na  jednom nebo více Chrome profilech současně."
               }
             </div>
