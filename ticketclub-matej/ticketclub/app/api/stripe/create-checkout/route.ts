@@ -103,8 +103,18 @@ export async function POST(request: NextRequest) {
       MENTORING1V1: "scale_yearly",
     };
 
+    const { data: existingSubHistory } = await supabase
+      .from("subscriptions")
+      .select("id")
+      .eq("user_id", user.id)
+      .limit(1);
+
+    const hasUsedTrial = existingSubHistory && existingSubHistory.length > 0;
+
     const promoUpper = promoCode?.toUpperCase();
-    const trialDays = (promoUpper && PROMO_CODES[promoUpper]) ? PROMO_CODES[promoUpper] : 0;
+    const trialDays = (!hasUsedTrial && promoUpper && PROMO_CODES[promoUpper])
+      ? PROMO_CODES[promoUpper]
+      : 0;
 
     if (promoUpper && PROMO_CODE_PLAN_RESTRICTION[promoUpper]) {
       if (plan !== PROMO_CODE_PLAN_RESTRICTION[promoUpper]) {
