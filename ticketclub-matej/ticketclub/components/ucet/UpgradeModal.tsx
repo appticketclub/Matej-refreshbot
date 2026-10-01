@@ -97,130 +97,57 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
                 onChange={e => {
                   const code = e.target.value.toUpperCase();
                   setPromoCode(code);
-                  setPromoValid(code === "SKOUSKA");
+                  setPromoValid(code === "SKOUSKA" || code === "TRIAL" || code === "TRIAL2" || code === "MENTORING1V1");
                 }}
                 style={{ flex: 1, padding: "0.6rem 1rem", background: "#111", border: `1px solid ${promoValid ? "#4ade80" : "#1a1a1a"}`, borderRadius: 10, color: "#fff", fontSize: 13, outline: "none" }}
               />
             </div>
-            {promoValid && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 12 dní zdarma!</div>}
+            {promoValid && promoCode === "SKOUSKA" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 12 dní zdarma!</div>}
+            {promoValid && promoCode === "TRIAL" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 7 dní zdarma!</div>}
+            {promoValid && promoCode === "TRIAL2" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 14 dní zdarma!</div>}
+            {promoValid && promoCode === "MENTORING1V1" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 180 dní zdarma!</div>}
           </div>
 
-          {/* Toggle */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
-            <div style={{ display: "flex", background: "#111", border: "1px solid #1a1a1a", borderRadius: 99, padding: 4, gap: 4 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: "2rem" }}>
+            {/* Monthly */}
+            <div style={{ background: "#130f24", border: "0.5px solid #2a1f4a", borderRadius: 16, padding: "1.5rem" }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 8 }}>Neomezený</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: "#fff" }}>€45.95</div>
+              <div style={{ fontSize: 12, color: "#6d5a9e", marginBottom: 16 }}>fakturováno měsíčně</div>
+              <ul style={{ listStyle: "none", padding: 0, marginBottom: 20 }}>
+                {["Refresh Bot", "Neomezený počet profilů"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: "#e2d9f3", marginBottom: 6 }}>✓ {f}</li>
+                ))}
+              </ul>
               <button
-                onClick={() => { if (currentPlan === "pro" && currentBilling === "yearly") return; setBilling("monthly"); }}
-                disabled={currentPlan === "pro" && currentBilling === "yearly"}
-                style={{
-                  padding: "6px 20px",
-                  borderRadius: 99,
-                  fontSize: 13,
-                  fontWeight: 500,
-                  border: "none",
-                  cursor: currentPlan === "pro" && currentBilling === "yearly" ? "not-allowed" : "pointer",
-                  background: billing === "monthly" ? "#1a1a1a" : "transparent",
-                  color: billing === "monthly" ? "#fff" : "#525252",
-                  transition: "all 0.15s",
-                  opacity: currentPlan === "pro" && currentBilling === "yearly" ? 0.4 : 1,
-                }}
-              >Měsíčně</button>
-              <button onClick={() => setBilling("yearly")} style={{ padding: "6px 20px", borderRadius: 99, fontSize: 13, fontWeight: 500, border: "none", cursor: "pointer", background: billing === "yearly" ? "#1a1a1a" : "transparent", color: billing === "yearly" ? "#fff" : "#525252", transition: "all 0.15s" }}>
-                Ročně <span style={{ fontSize: 11, background: "rgba(34,197,94,0.15)", color: "#4ade80", padding: "2px 6px", borderRadius: 99, marginLeft: 4 }}>3 mesiace zadarmo</span>
+                onClick={() => handleCheckout("scale_monthly")}
+                disabled={loading === "scale_monthly"}
+                style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#4f46e5)", border: "none", borderRadius: 10, color: "#fff", fontWeight: 700, fontSize: 13, cursor: loading === "scale_monthly" ? "default" : "pointer", opacity: loading === "scale_monthly" ? 0.7 : 1 }}
+              >
+                {loading === "scale_monthly" ? "Načítám..." : "Získat Neomezený →"}
               </button>
             </div>
-          </div>
 
-          {/* Cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
-
-            {/* PRO */}
-            {currentPlan !== "pro" && currentPlan !== "scale" && (
-            <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: 16, padding: "1.5rem" }}>
-              <div style={{ fontSize: 11, color: "#525252", letterSpacing: "0.1em", marginBottom: 8 }}>1 Profil</div>
-              <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 4, display: "flex", alignItems: "baseline", flexWrap: "wrap" as const }}>
-                {billing === "monthly" ? "€49.95" : "€449.95"}
-                <span style={{ fontSize: 13, color: "#525252" }}>
-                  {billing === "monthly" ? "/mes" : "/rok"}
-                </span>
-                {billing === "yearly" && (
-                  <span style={{
-                    fontSize: 10,
-                    background: "rgba(34,197,94,0.15)",
-                    color: "#4ade80",
-                    padding: "2px 8px",
-                    borderRadius: 99,
-                    marginLeft: 6,
-                    fontWeight: 600,
-                  }}>
-                    3 měsíce zdarma
-                  </span>
-                )}
+            {/* Yearly */}
+            <div style={{ background: "#130f24", border: "0.5px solid #7c3aed", borderRadius: 16, padding: "1.5rem", position: "relative" as const }}>
+              <div style={{ position: "absolute" as const, top: -12, left: "50%", transform: "translateX(-50%)", background: "#7c3aed", color: "#fff", fontSize: 11, fontWeight: 700, padding: "3px 12px", borderRadius: 99 }}>
+                NEJOBLÍBENĚJŠÍ
               </div>
-              <div style={{ fontSize: 12, color: "#525252", marginBottom: "1.25rem" }}>
-                {billing === "monthly" ? "fakturováno měsíčně" : "fakturováno ročně"}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: 8, marginBottom: "1.5rem" }}>
-                {[
-                  ["Refresh Bot (1 Chrome profil)", true],
-                  ["Neomezený počet profilů", false],
-                ].map(([label, ok]) => (
-                  <div key={label as string} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: ok ? "#fff" : "#525252" }}>
-                    <span style={{ color: ok ? "#4ade80" : "#333" }}>{ok ? "✓" : "—"}</span> {label as string}
-                  </div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 8 }}>Neomezený</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: "#fff" }}>€399.95</div>
+              <div style={{ fontSize: 12, color: "#6d5a9e", marginBottom: 4 }}>fakturováno ročně</div>
+              <div style={{ fontSize: 11, color: "#a78bfa", marginBottom: 16 }}>3 měsíce zdarma</div>
+              <ul style={{ listStyle: "none", padding: 0, marginBottom: 20 }}>
+                {["Refresh Bot", "Neomezený počet profilů"].map(f => (
+                  <li key={f} style={{ fontSize: 13, color: "#e2d9f3", marginBottom: 6 }}>✓ {f}</li>
                 ))}
-              </div>
+              </ul>
               <button
-                onClick={() => handleCheckout(billing === "monthly" ? "monthly" : "yearly")}
-                disabled={loading === (billing === "monthly" ? "monthly" : "yearly")}
-                style={{ width: "100%", padding: "0.65rem", background: "transparent", border: "1px solid #2a2a2a", borderRadius: 10, color: "#fff", fontSize: 14, fontWeight: 700, cursor: loading ? "default" : "pointer", opacity: loading ? 0.7 : 1 }}
+                onClick={() => handleCheckout("scale_yearly")}
+                disabled={loading === "scale_yearly"}
+                style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#4f46e5)", border: "none", borderRadius: 10, color: "#fff", fontWeight: 700, fontSize: 13, cursor: loading === "scale_yearly" ? "default" : "pointer", opacity: loading === "scale_yearly" ? 0.7 : 1 }}
               >
-                {loading === (billing === "monthly" ? "monthly" : "yearly") ? "Načítám..." : "Získat 1 Profil →"}
-              </button>
-            </div>
-            )}
-
-            {/* SCALE */}
-            <div style={{ background: "#111", border: "2px solid #3b82f6", borderRadius: 16, padding: "1.5rem", position: "relative" as const }}>
-              <div style={{ position: "absolute" as const, top: -12, left: "50%", transform: "translateX(-50%)", background: "#3b82f6", color: "#fff", fontSize: 11, fontWeight: 700, padding: "4px 14px", borderRadius: 99, whiteSpace: "nowrap" as const }}>Nejoblíbenější</div>
-              <div style={{ fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", marginBottom: 8 }}>Neomezený</div>
-              <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 4, display: "flex", alignItems: "baseline", flexWrap: "wrap" as const }}>
-                {billing === "monthly" ? "€74.95" : "€674.95"}
-                <span style={{ fontSize: 13, color: "#525252" }}>
-                  {billing === "monthly" ? "/mes" : "/rok"}
-                </span>
-                {billing === "yearly" && (
-                  <span style={{
-                    fontSize: 10,
-                    background: "rgba(34,197,94,0.15)",
-                    color: "#4ade80",
-                    padding: "2px 8px",
-                    borderRadius: 99,
-                    marginLeft: 6,
-                    fontWeight: 600,
-                  }}>
-                    3 měsíce zdarma
-                  </span>
-                )}
-              </div>
-              <div style={{ fontSize: 12, color: "#525252", marginBottom: "1.25rem" }}>
-                {billing === "monthly" ? "fakturováno měsíčně" : "fakturováno ročně"}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: 8, marginBottom: "1.5rem" }}>
-                {[
-                  ["Refresh Bot (1 Chrome profil)", true],
-                  ["Neomezený počet profilů", true],
-                ].map(([label, ok]) => (
-                  <div key={label as string} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#fff" }}>
-                    <span style={{ color: "#4ade80" }}>✓</span> {label as string}
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={() => handleCheckout(billing === "monthly" ? "scale_monthly" : "scale_yearly")}
-                disabled={loading === (billing === "monthly" ? "scale_monthly" : "scale_yearly")}
-                style={{ width: "100%", padding: "0.65rem", background: "#3b82f6", border: "none", borderRadius: 10, color: "#fff", fontSize: 14, fontWeight: 700, cursor: loading ? "default" : "pointer", opacity: loading ? 0.7 : 1 }}
-              >
-                {loading === (billing === "monthly" ? "scale_monthly" : "scale_yearly") ? "Načítám..." : "Získat Neomezený →"}
+                {loading === "scale_yearly" ? "Načítám..." : "Získat Neomezený →"}
               </button>
             </div>
           </div>
