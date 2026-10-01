@@ -97,13 +97,12 @@ export default function UpgradeModal({ onClose }: { onClose: () => void }) {
                 onChange={e => {
                   const code = e.target.value.toUpperCase();
                   setPromoCode(code);
-                  setPromoValid(code === "SKOUSKA" || code === "TRIAL" || code === "TRIAL2" || code === "MENTORING1V1");
+                  setPromoValid(code === "SKOUSKA" || code === "TRIAL2" || code === "MENTORING1V1");
                 }}
                 style={{ flex: 1, padding: "0.6rem 1rem", background: "#111", border: `1px solid ${promoValid ? "#4ade80" : "#1a1a1a"}`, borderRadius: 10, color: "#fff", fontSize: 13, outline: "none" }}
               />
             </div>
             {promoValid && promoCode === "SKOUSKA" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 12 dní zdarma!</div>}
-            {promoValid && promoCode === "TRIAL" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 7 dní zdarma!</div>}
             {promoValid && promoCode === "TRIAL2" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 14 dní zdarma!</div>}
             {promoValid && promoCode === "MENTORING1V1" && <div style={{ fontSize: 12, color: "#4ade80", marginTop: 4 }}>✓ Kód platný — 180 dní zdarma!</div>}
           </div>
