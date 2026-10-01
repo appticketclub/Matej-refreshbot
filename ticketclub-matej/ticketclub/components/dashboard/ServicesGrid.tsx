@@ -146,61 +146,17 @@ export default function ServicesGrid({
           }
         }
       `}</style>
-      {/* Dynamic upgrade banner */}
-      {!isScale && (
-        <div style={{
-          background: "linear-gradient(135deg, #1a1a2e, #16213e)",
-          border: `1px solid ${isPro ? "rgba(59,130,246,0.3)" : "rgba(168,85,247,0.3)"}`,
-          borderRadius: 16,
-          padding: "1.25rem 1.5rem",
-          marginBottom: "1.5rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "1rem",
-          flexWrap: "wrap" as const,
-        }}>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: isPro ? "#3b82f6" : "#a855f7", marginBottom: 4 }}>
-              {isPro ? "⭐ Upgraduj na Scale" : "⭐ Odemkni Refresh Bot"}
-            </div>
-            <div style={{ fontSize: 12, color: "#ededed" }}>
-              {isPro 
-                ? "Spusťte Refresh Bot na neomezeném počtu Chrome profilů současně."
-                : "Spouštěj Refresh Bot na  jednom nebo více Chrome profilech současně."
-              }
-            </div>
-          </div>
-          <button
-            onClick={() => setShowUpgradeModal(true)}
-            style={{
-              padding: "0.6rem 1.25rem",
-              background: isPro ? "#3b82f6" : "linear-gradient(135deg, #a855f7, #7c3aed)",
-              border: "none",
-              borderRadius: 10,
-              color: "#fff",
-              fontWeight: 700,
-              fontSize: 13,
-              cursor: "pointer",
-              whiteSpace: "nowrap" as const,
-            }}
-          >
-            {isPro ? "Upgradovat na Scale →" : "Získat přístup →"}
-          </button>
-        </div>
-      )}
-
       {showUpgradeModal && <UpgradeModal onClose={() => setShowUpgradeModal(false)} />}
       <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
         {services.map(service => {
-          const locked = (service.scale ? (!isScale && !isAdmin) : (!service.free && !isPro && !isAdmin));
+          const locked = (!service.free && !isPro && !isScale && !isAdmin);
           return (
             <div
               key={service.id}
               onClick={() => { if (!locked && service.href) router.push(service.href); }}
               style={{
-                background: "#111111",
-                border: `1px solid ${locked ? "#1a1a1a" : "#ededed"}`,
+                background: "linear-gradient(135deg, #111111, #130d1a)",
+                border: `1px solid ${locked ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.4)"}`,
                 borderRadius: 16, padding: "1.5rem",
                 cursor: (!locked && service.href) ? "pointer" : "default",
                 position: "relative", overflow: "hidden",
@@ -208,53 +164,32 @@ export default function ServicesGrid({
                 display: "flex",
                 flexDirection: "column" as const,
                 justifyContent: "space-between",
-                ...(service.scale ? {
-                  border: "1px solid rgba(168,85,247,0.4)",
-                  boxShadow: "0 0 20px rgba(168,85,247,0.1)",
-                  background: "linear-gradient(135deg, #111111, #130d1a)",
-                } : {})
+                boxShadow: locked ? "none" : "0 0 20px rgba(168,85,247,0.1)",
               }}
               onMouseEnter={e => {
                 if (!locked && service.href) {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = service.scale ? "#a855f7" : "#ffffff";
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "#a855f7";
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)";
                 }
               }}
               onMouseLeave={e => {
-                if (service.scale) {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(168,85,247,0.4)";
-                } else {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = locked ? "#1a1a1a" : "#ededed";
-                }
+                (e.currentTarget as HTMLDivElement).style.borderColor = locked ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.4)";
                 (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
               }}
             >
-              {service.scale && (
+              {!service.free && (
                 <span style={{
                   position: "absolute", top: 12, right: 12,
-                  background: "rgba(168,85,247,0.15)",
+                  background: locked ? "rgba(168,85,247,0.08)" : "rgba(168,85,247,0.15)",
                   color: "#a855f7",
-                  border: "1px solid rgba(168,85,247,0.3)",
+                  border: `1px solid ${locked ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.3)"}`,
                   fontSize: 10,
                   fontWeight: 700,
                   padding: "2px 8px",
                   borderRadius: 99,
                   letterSpacing: "0.08em",
+                  opacity: locked ? 0.7 : 1,
                 }}>SCALE</span>
-              )}
-              {!service.scale && !service.free && (
-                <div style={{
-                  position: "absolute", top: 12, right: 12,
-                  padding: "3px 10px", borderRadius: 6, fontSize: 11, fontWeight: 700,
-                  background: (isPro || isAdmin) ? "linear-gradient(135deg, #7c3aed, #5b21b6)" : "#1a1a1a",
-                  color: (isPro || isAdmin) ? "#fff" : "#ededed",
-                  border: (isPro || isAdmin) ? "none" : "1px solid #2a2a2a",
-                  opacity: locked ? 0.6 : 1,
-                }}>
-                  {(isPro || isAdmin)
-                    ? (service.id === "refresh-bot" ? "PRO / SCALE" : "PRO")
-                    : (service.id === "refresh-bot" ? "🔒 PRO / SCALE" : "🔒 PRO")}
-                </div>
               )}
 
               <div style={{ flex: 1 }}>
@@ -294,7 +229,7 @@ export default function ServicesGrid({
                           background: "#0a0a0a",
                           border: "1px solid #1a1a1a",
                           borderRadius: 8,
-                          color: service.scale ? "#a855f7" : "#4ade80",
+                          color: "#a855f7",
                           fontSize: 13,
                           filter: "blur(4px)",
                           userSelect: "none" as const,
@@ -313,18 +248,16 @@ export default function ServicesGrid({
                             }}
                             style={{
                               padding: "0.5rem 1.25rem",
-                              background: service.scale
-                                ? "linear-gradient(135deg, #a855f7, #7c3aed)"
-                                : "linear-gradient(135deg, #ffffff, #a0a0a0)",
+                              background: "linear-gradient(135deg, #a855f7, #7c3aed)",
                               border: "none",
                               borderRadius: 8,
-                              color: service.scale ? "#fff" : "#000",
+                              color: "#fff",
                               fontWeight: 700,
                               fontSize: 12,
                               cursor: "pointer",
                             }}
                           >
-                            {service.scale ? "Upgradovat na Scale →" : "Upgradovat na PRO →"}
+                            Získat přístup →
                           </button>
                         </div>
                       </div>
